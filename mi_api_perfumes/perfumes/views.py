@@ -1,8 +1,11 @@
 from rest_framework import viewsets
 from .permissions import ReadOnlyIfUnauthenticated
 from rest_framework.permissions import IsAuthenticated
-from .models import Perfume, Marca, Carrito, ItemCarrito, Pedido
-from .serializer import PerfumeSerializer, MarcaSerializer, CarritoSerializer, ItemCarritoSerializer, PedidoSerializer 
+from .models import Perfume, Marca, Carrito, ItemCarrito, Pedido, Stock
+from .serializer import ( 
+    PerfumeSerializer, MarcaSerializer, CarritoSerializer, ItemCarritoSerializer, 
+    PedidoSerializer, StockSerializer
+)
 
 class PerfumeViewSet(viewsets.ModelViewSet):
     permission_classes = [ReadOnlyIfUnauthenticated]
@@ -35,3 +38,8 @@ class PedidoViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Pedido.objects.filter(usuario=self.request.user)
     
+class StockViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated] 
+    queryset = Stock.objects.all()
+    serializer_class = StockSerializer
+

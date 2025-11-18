@@ -61,3 +61,10 @@ class Pedido(models.Model):
     def __str__(self):
         return f"Pedido {self.id} de {self.usuario.username}"
     
+class Stock(models.Model):
+    perfume = models.OneToOneField('Perfume', on_delete=models.CASCADE)
+    cantidad_disponible = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"Stock de {self.perfume.nombre}: {self.cantidad_disponible}"
+    

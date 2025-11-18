@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Marca, Perfume, Carrito, ItemCarrito, Pedido
+from .models import Marca, Perfume, Carrito, ItemCarrito, Pedido, Stock
 
 class MarcaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,4 +32,11 @@ class PedidoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedido
         fields = '__all__'
+
+class StockSerializer(serializers.ModelSerializer):
+    nombre_perfume = serializers.ReadOnlyField(source='perfume.nombre')
+    
+    class Meta:
+        model = Stock
+        fields = ['id', 'perfume', 'nombre_perfume', 'cantidad_disponible']
 
